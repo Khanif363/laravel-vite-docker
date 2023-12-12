@@ -1,0 +1,9 @@
+High Level App
+Deadline
+
+
+
+
+#Document Perlengkapan
+High Level Design yang berkaitan kepada resource.
+Jumlah User

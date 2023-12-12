@@ -1,0 +1,16 @@
+stages:
+  - deploy
+
+Deploy DEV:
+  stage: deploy
+  only:
+    - dev
+  script:
+    - export PATH="/home/gitlab-runner/.nvm/versions/node/v16.19.0/bin:$PATH"
+    - cd $APP_FOLDER_DEV
+    - git checkout $BRANCH_DEV
+    - git pull https://oauth2:$GIT_TOKEN_ACCESS@${REPOSITORY} $BRANCH_DEV
+    - composer update
+    - php artisan migrate
+    - npm install
+    - npm run prod

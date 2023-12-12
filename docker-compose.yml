@@ -9,9 +9,9 @@ services:
       context: ./docker
       dockerfile: nginx.dockerfile
       args:
-        - UID=${UID:-1000}
-        - GID=${GID:-1000}
-        - USER=${USER:-laravel}
+        - UID=${UID}
+        - GID=${GID}
+        - USER=${USER}
     restart: unless-stopped
     container_name: nginx
     ports:
@@ -35,9 +35,9 @@ services:
       context: ./docker
       dockerfile: php.dockerfile
       args:
-        - UID=${UID:-1000}
-        - GID=${GID:-1000}
-        - USER=${USER:-laravel}
+        - UID=${UID}
+        - GID=${GID}
+        - USER=${USER}
     container_name: php
     ports:
       - ":9000"
@@ -80,9 +80,9 @@ services:
       context: ./docker
       dockerfile: php.dockerfile
       args:
-        - UID=${UID:-1000}
-        - GID=${GID:-1000}
-        - USER=${USER:-laravel}
+        - UID=${UID}
+        - GID=${GID}
+        - USER=${USER}
     container_name: laravel-cron
     volumes:
       - ./src:/var/www/html
@@ -99,9 +99,9 @@ services:
       context: ./docker
       dockerfile: php.dockerfile
       args:
-        - UID=${UID:-1000}
-        - GID=${GID:-1000}
-        - USER=${USER:-laravel}
+        - UID=${UID}
+        - GID=${GID}
+        - USER=${USER}
     container_name: laravel-queue
     volumes:
       - ./src:/var/www/html
@@ -145,9 +145,9 @@ services:
       context: ./docker
       dockerfile: php.dockerfile
       args:
-        - UID=${UID:-1000}
-        - GID=${GID:-1000}
-        - USER=${USER:-laravel}
+        - UID=${UID}
+        - GID=${GID}
+        - USER=${USER}
     container_name: laravel-migrate-seed
     volumes:
       - ./src:/var/www/html
@@ -169,9 +169,9 @@ services:
       context: ./docker
       dockerfile: composer.dockerfile
       args:
-        - UID=${UID:-1000}
-        - GID=${GID:-1000}
-        - USER=${USER:-laravel}
+        - UID=${UID}
+        - GID=${GID}
+        - USER=${USER}
     container_name: composer
     volumes:
       - ./src:/var/www/html
@@ -190,9 +190,9 @@ services:
       context: ./docker
       dockerfile: php.dockerfile
       args:
-        - UID=${UID:-1000}
-        - GID=${GID:-1000}
-        - USER=${USER:-laravel}
+        - UID=${UID}
+        - GID=${GID}
+        - USER=${USER}
     container_name: artisan
     volumes:
       - ./src:/var/www/html

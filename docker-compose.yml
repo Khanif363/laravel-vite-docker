@@ -55,10 +55,10 @@ services:
     ports:
       - 3307:3306
     environment:
-      MYSQL_DATABASE: ${DB_DATABASE}
-      MYSQL_USER: ${DB_USERNAME}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: laravel
+      MYSQL_USER: laravel
+      MYSQL_PASSWORD: pwlaravel
+      MYSQL_ROOT_PASSWORD: pwlaravel
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
     volumes:
@@ -129,10 +129,10 @@ services:
     container_name: phpmyadmin
     environment:
       PMA_ARBITRARY: 1
-      PMA_HOST: ${DB_HOST}
-      PMA_USER: ${DB_USERNAME}
-      PMA_PASSWORD: ${DB_PASSWORD}
-      PMA_PORT: ${DB_PORT}
+      PMA_HOST: 127.0.0.1
+      PMA_USER: laravel
+      PMA_PASSWORD: pwlaravel
+      PMA_PORT: 3306
     depends_on:
       - mysql
     ports:

@@ -51,6 +51,10 @@ class TroubleTicket extends Model
     {
         return $this->troubleTicketProgress();
     }
+    public function ttpTechnicalClose()
+    {
+        return $this->troubleTicketProgress();
+    }
 
     public function lastProgress()
     {

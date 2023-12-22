@@ -52,6 +52,14 @@
                                 <td>Service</td>
                                 <td>{{ $ticket->service->name ?? '-' }}</td>
                             </tr>
+                            <tr>
+                                <td>RFO</td>
+                                <td>{{ (count($ticket?->ttpTechnicalClose) > 0 ? $ticket?->ttpTechnicalClose[0]?->technicalClose?->rfo : null) ?? '-' }}</td>
+                            </tr>
+                            <tr>
+                                <td>Tindakan</td>
+                                <td>{{ $ticket->resume->name ?? '-' }}</td>
+                            </tr>
                         </table>
                     </div>
                 </div>

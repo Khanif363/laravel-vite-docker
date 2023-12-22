@@ -43,9 +43,14 @@ class TroubleTicketRepository implements TroubleTicketRepositoryInterface
 
 
     // Get All Ticket Process
-    public function getTicketAll(object $request, $department)
+    public function getTicketAll(object $request, $department, $category)
     {
-        $data = $this->model->selectRaw("trouble_tickets.id, nomor_ticket, priority, type, problem_type, dp.name as department_name, trouble_tickets.department_id, sv.name as service_name, subject, update_type, us.full_name as progress_inputer, trouble_tickets.created_date, ctr.full_name as creator_name, ti.source_info as source_info_trouble, lc.name as location_name, trouble_tickets.technical_closed_date, trouble_tickets.status, timediff(now(), trouble_tickets.created_date) as time_diff_now, trouble_tickets.last_updated_date, ttp.update_type as last_progress, resume_gm, resume_cto, step")
+        $ttpTechClosed = DB::table('trouble_ticket_progress')
+        ->select('trouble_ticket_progress.id','trouble_ticket_progress.trouble_ticket_id', 'tc.rfo')
+        ->leftJoin('technical_closes as tc', 'trouble_ticket_progress.id', '=', 'tc.trouble_ticket_progress_id')
+        ->where('update_type', "Technical Close");
+
+        $data = $this->model->selectRaw("trouble_tickets.id, trouble_tickets.category, ttp_tech_closed.rfo, rs.name as ticket_action, nomor_ticket, priority, type, problem_type, dp.name as department_name, trouble_tickets.department_id, sv.name as service_name, subject, update_type, us.full_name as progress_inputer, trouble_tickets.created_date, ctr.full_name as creator_name, ti.source_info as source_info_trouble, lc.name as location_name, trouble_tickets.technical_closed_date, trouble_tickets.status, timediff(now(), trouble_tickets.created_date) as time_diff_now, trouble_tickets.last_updated_date, ttp.update_type as last_progress, resume_gm, resume_cto, step")
             ->leftJoin('trouble_ticket_progress as ttp', 'trouble_tickets.last_progress_id', '=', 'ttp.id')
             ->leftJoin('users as ctr', 'trouble_tickets.creator_id', '=', 'ctr.id')
             ->leftJoin('users as us', 'ttp.inputer_id', '=', 'us.id')
@@ -53,6 +58,14 @@ class TroubleTicketRepository implements TroubleTicketRepositoryInterface
             ->leftJoin('departments as dp', 'trouble_tickets.department_id', '=', 'dp.id')
             ->leftJoin('services as sv', 'trouble_tickets.service_id', '=', 'sv.id')
             ->leftJoin('locations as lc', 'trouble_tickets.event_location_id', '=', 'lc.id')
+            ->leftJoin('resumes as rs', 'trouble_tickets.resume_id', '=', 'rs.id')
+            ->leftJoinSub($ttpTechClosed, 'ttp_tech_closed', function ($join)
+            {
+                $join->on('trouble_tickets.id', '=', 'ttp_tech_closed.trouble_ticket_id');
+            })
+            ->when($category, function ($query) use ($category) {
+                $query->whereIn('trouble_tickets.category', $category);
+            })
             ->when($request->filled('request.created_date'), function ($query) use ($request) {
                 $query->whereDate('trouble_tickets.created_date', Carbon::parse($request->input('request.created_date'))->isoFormat('YYYY-MM-DD'));
             })
@@ -202,6 +215,13 @@ class TroubleTicketRepository implements TroubleTicketRepositoryInterface
                         ->with('attachments', 'editor')
                         ->orderBy('id', 'desc');
                 },
+                'ttpTechnicalClose' => function ($query) {
+                    $query
+                    ->where('update_type', 'Technical Close')
+                        ->with('technicalClose')
+                        ->orderByDesc('id');
+                },
+                'resume',
                 'mantoolsDatacom' => function ($query) {
                     $query->selectRaw('id, CONCAT(customer, " - ", name, " - ", location) as data_backhaul, datacom_perangkat_id, datacom_metro_e_id, datacom_vpn_ip_id, datacom_ip_transit_id, datacom_astinet_id');
                 },

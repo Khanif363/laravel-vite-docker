@@ -271,8 +271,9 @@
                     </div>
                 </div>
                 @php
-                    $carbon_now = \Carbon\Carbon::now(); // mengambil tanggal hari ini
-                    $today = $carbon_now->format('m/d/Y');
+                    $createdAt = \Carbon\Carbon::parse($ticket->created_date);
+                    $tglCreate = $createdAt->format('m/d/Y');
+                    $timeCreate = $createdAt->format('H:i');
                 @endphp
                 <div class="p-4 mt-2 bg-white border-2 shadow-md border-tosca-0 rounded-xl">
                     <div class="grid grid-cols-1 md:gap-x-16 lg:gap-x-20 gap-y-2 sm:grid-cols-1 md:grid-cols-2">
@@ -292,7 +293,7 @@
                                                     class="w-full pl-2 pr-9 py-2 bg-white border-1.5 border-yellow-0 rounded-xl text-sm shadow-sm placeholder-slate-400
                                             focus:outline-none focus:ring-1 focus:ring-yellow-0
                                             disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none text-gray-600"
-                                                    value="{{ old('event_date') ?? $today }}">
+                                                    value="{{ old('event_date') ?? $tglCreate }}">
                                                 <i
                                                     class="fas fa-calendar-days h-6 w-6 absolute my-2.5 mr-2 pointer-events-none text-yellow-0"></i>
                                             </div>
@@ -306,7 +307,7 @@
                                                     class="timepicker shrink w-full pl-2 pr-9 py-2 bg-white border-1.5 border-yellow-0 rounded-xl text-sm shadow-sm placeholder-slate-400
                                         focus:outline-none focus:ring-1 focus:ring-yellow-0
                                         disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none text-gray-600 appearance-none bg-none"
-                                                    value="{{ old('event_time') }}">
+                                                    value="{{ old('event_time') ?? $timeCreate }}">
                                                 <i
                                                     class="fas fa-clock h-6 w-6 absolute my-2.5 mr-2 pointer-events-none text-yellow-0"></i>
                                             </div>
@@ -606,7 +607,6 @@
                         $('#type').val(sessionStorage.getItem('type')).trigger('change');
                     }
                     let type = sessionStorage.getItem('type');
-                    console.log(type);
                     switch (type) {
                         case 'Fulfillment':
                         case 'Service Request':
@@ -685,10 +685,11 @@
                 function category(val) {
                     const services = <?php echo json_encode($data_view['services']); ?>;
                     $('#service_id').empty();
-                    $('#service_id').append(`<option value="" disabled selected>-- Pilih Kategori --</option>`);
+                    $('#service_id').append(`<option value="" disabled selected>-- Pilih Layanan --</option>`);
                     services.forEach(function(item) {
                         if (item.category && item.category.includes(val)) {
-                            $('#service_id').append(`<option value="${item.id}">${item.name}</option>`);
+                            $('#service_id').append(
+                                `<option value="${item.id}">${item.name}</option>`);
                         }
                     });
                 }
@@ -726,7 +727,6 @@
                 function reporterNik() {
                     let selectedOption = $("#reporter_name").find("option:selected");
                     let dataId = selectedOption.data("id");
-                    console.log(dataId);
                     if (dataId) {
                         let url = `{{ route('user3easy.detail', ':id') }}`;
                         url = url.replace(':id', dataId);
@@ -734,7 +734,6 @@
                             url: url,
                             success: function(response) {
                                 $('#reporter_nik').val(response.data.nik);
-                                console.log(response.data.nik);
                             }
                         });
                     }

@@ -32,6 +32,7 @@ class TroubleTicketService implements TroubleTicketServiceInterface
     public function getTicketAll(object $request): object
     {
         $department = null;
+        $category = null;
 
         $rolepermission = $this->getRolePermission();
         if (!in_array('View All Ticket', (array)$rolepermission->accessRights->pluck('access_name')->toArray()) && (($rolepermission->role->role_name ?? null) != 'Admin')) :
@@ -41,7 +42,14 @@ class TroubleTicketService implements TroubleTicketServiceInterface
             $department = $permission_depart;
         endif;
 
-        $data = $this->mainRepository->getTicketAll($request, $department);
+        if (($rolepermission->role->role_name ?? null) != 'Admin') :
+            $part_permission = ['name' => 'COMIT'];
+            $rolepermission = $this->getRolePermission($part_permission);
+            $permission_depart = $rolepermission->accessRights->pluck('access_name')->toArray();
+            $category = $permission_depart;
+        endif;
+
+        $data = $this->mainRepository->getTicketAll($request, $department, $category);
         return $data;
     }
 
@@ -233,12 +241,16 @@ class TroubleTicketService implements TroubleTicketServiceInterface
                             'location' => $ticket->eventLocation->name ?? "-",
                             'informationSource' => $ticket->source_info ?? "-",
                             'ticketStatus' => $ticket->status ?? "-",
+                            'diffCreatedDate' =>  trim($ticket->created_date->diffForHumans()) ?? '-',
+                            'diffLastUpdatedDate' =>  $ticket->last_updated_date ? trim($ticket->last_updated_date->diffForHumans()) : '-',
                         ],
                         'description' => $ticket->problem ?? "-",
                         'attachments' => $attachment ?? [],
                         'ticket'      => $ticket->nomor_ticket ?? "-",
                         'subject'     => $ticket->subject ?? "-",
-                        'reportDate'  => $tanggal ?? "-"
+                        'reportDate'  => $tanggal ?? "-",
+                        'diffCreatedDate' =>  trim($ticket->created_date->diffForHumans()) ?? '-',
+                        'diffLastUpdatedDate' =>  $ticket->last_updated_date ? trim($ticket->last_updated_date->diffForHumans()) : '-',
                     ],
                     'view'  => $key == 'reporter_email' ? 'emails.notification-customer' : null
                 ];
@@ -280,7 +292,11 @@ class TroubleTicketService implements TroubleTicketServiceInterface
                     'informationSource' => $ticket->ticketInfo->source_info ?? "-",
                     'ticketStatus' => $ticket->status ?? "-",
                     'lastProgress' => $ticket->lastProgress->update_type ?? "-",
+                    'diffCreatedDate' =>  trim($ticket->created_date->diffForHumans()) ?? '-',
+                    'diffLastUpdatedDate' =>  $ticket->last_updated_date ? trim($ticket->last_updated_date->diffForHumans()) : '-',
                 ],
+                'diffCreatedDate' =>  trim($ticket->created_date->diffForHumans()) ?? '-',
+                'diffLastUpdatedDate' =>  $ticket->last_updated_date ? trim($ticket->last_updated_date->diffForHumans()) : '-',
                 'description' => $ticket->problem ?? "-",
                 'attachments' => $attachment ?? [],
             ]
@@ -370,7 +386,9 @@ class TroubleTicketService implements TroubleTicketServiceInterface
                 'solution' => $solution,
                 'dataTicket' => $ticketAfterUpdate,
                 'progressTicket' => $ticketAfterUpdate->troubleTicketProgress,
-                'dear' => 'customer'
+                'dear' => 'customer',
+                'diffCreatedDate' =>  trim($ticket->created_date->diffForHumans()) ?? '-',
+                'diffLastUpdatedDate' =>  $ticket->last_updated_date ? trim($ticket->last_updated_date->diffForHumans()) : '-',
             ],
             'view'  => 'emails.notification-customer' ?? null
         ];

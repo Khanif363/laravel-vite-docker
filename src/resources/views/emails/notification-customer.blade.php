@@ -18,6 +18,8 @@
             Nomor Tiket: {{ $ticket }} <br>
             Subjek: {!! $subject !!} <br>
             Waktu Laporan: {{ $reportDate }} <br><br>
+            Durasi Pembuatan: {{ $diffCreatedDate }} <br><br>
+            Durasi Update Terakhir: {{ $diffLastUpdatedDate }} <br><br>
             Demikian disampaikan progress selanjutnya akan dikabari lebih lanjut. <br><br>
             Salam, COMIT Care Center.
         </p>
@@ -31,6 +33,8 @@
                 Department Terkait: {{ $department }} <br>
                 Service: {{ $service }} <br>
                 Device: {{ $device }} <br>
+                Durasi Pembuatan: {{ $diffCreatedDate }} <br><br>
+                Durasi Update Terakhir: {{ $diffLastUpdatedDate }} <br><br>
                 <br><br>
                 Demikian disampaikan progress selanjutnya akan dikabari lebih lanjut. <br><br>
                 Salam, COMIT Care Center.
@@ -44,6 +48,8 @@
                 Department Terkait: {{ $department }} <br>
                 Service: {{ $service }} <br>
                 Device: {{ $device }} <br>
+                Durasi Pembuatan: {{ $diffCreatedDate }} <br><br>
+                Durasi Update Terakhir: {{ $diffLastUpdatedDate }} <br><br>
                 <br><br>
                 Demikian disampaikan progress selanjutnya akan dikabari lebih lanjut. <br><br>
                 Salam, COMIT Care Center.
@@ -56,6 +62,8 @@
                 <br><br>
                 Nomor Tiket: {{ $ticket }} <br>
                 Subjek: {!! $subject !!} <br>
+                Durasi Pembuatan: {{ $diffCreatedDate }} <br><br>
+                Durasi Update Terakhir: {{ $diffLastUpdatedDate }} <br><br>
                 Engineer:
                 @foreach ($engineer as $engineers)
                     <ul>
@@ -73,6 +81,8 @@
                 <br><br>
                 Nomor Tiket: {{ $ticket }} <br>
                 Subjek: {!! $subject !!} <br>
+                Durasi Pembuatan: {{ $diffCreatedDate }} <br><br>
+                Durasi Update Terakhir: {{ $diffLastUpdatedDate }} <br><br>
                 Engineer:
                 @foreach ($engineer as $engineers)
                     <ul>
@@ -91,6 +101,8 @@
                 <br><br>
                 Nomor Tiket: {{ $ticket }} <br>
                 Subjek: {!! $subject !!} <br>
+                Durasi Pembuatan: {{ $diffCreatedDate }} <br><br>
+                Durasi Update Terakhir: {{ $diffLastUpdatedDate }} <br><br>
                 Penanganan: {!! $content !!} <br><br>
                 Demikian disampaikan progress selanjutnya akan dikabari lebih lanjut. <br><br>
                 Salam, COMIT Care Center.
@@ -101,6 +113,8 @@
                 <br><br>
                 Nomor Tiket: {{ $ticket }} <br>
                 Subjek: {!! $subject !!} <br>
+                Durasi Pembuatan: {{ $diffCreatedDate }} <br><br>
+                Durasi Update Terakhir: {{ $diffLastUpdatedDate }} <br><br>
                 Penanganan: {!! $content !!} <br><br>
                 Demikian disampaikan progress selanjutnya akan dikabari lebih lanjut. <br><br>
                 Salam, COMIT Care Center.
@@ -115,6 +129,8 @@
                 Subjek: {!! $subject !!} <br>
                 RFO: {!! $rfo !!} <br>
                 Solusi: {!! $solution !!} <br>
+                Durasi Pembuatan: {{ $diffCreatedDate }} <br><br>
+                Durasi Update Terakhir: {{ $diffLastUpdatedDate }} <br><br>
                 Durasi penanganan: {{ $handlingDuration }} <br><br>
                 Demikian disampaikan, apabila sudah tidak mengalami kendali tiket ini akan kami close. <br><br>
                 Salam, COMIT Care Center.
@@ -128,6 +144,8 @@
                 Subjek: {!! $subject !!} <br>
                 RFO: {!! $rfo !!} <br>
                 Solusi: {!! $solution !!} <br>
+                Durasi Pembuatan: {{ $diffCreatedDate }} <br><br>
+                Durasi Update Terakhir: {{ $diffLastUpdatedDate }} <br><br>
                 Durasi penanganan: {{ $handlingDuration }} <br><br>
                 Demikian disampaikan, apabila sudah tidak mengalami kendali tiket ini akan kami close. <br><br>
                 Salam, COMIT Care Center.
@@ -140,6 +158,8 @@
                 <br><br>
                 Nomor Tiket: {{ $ticket }} <br>
                 Subjek: {!! $subject !!} <br>
+                Durasi Pembuatan: {{ $diffCreatedDate }} <br><br>
+                Durasi Update Terakhir: {{ $diffLastUpdatedDate }} <br><br>
                 <br><br>
                 Demikian disampaikan progress selanjutnya akan dikabari lebih lanjut. <br><br>
                 Salam, COMIT Care Center.
@@ -150,6 +170,8 @@
                 <br><br>
                 Nomor Tiket: {{ $ticket }} <br>
                 Subjek: {!! $subject !!} <br>
+                Durasi Pembuatan: {{ $diffCreatedDate }} <br><br>
+                Durasi Update Terakhir: {{ $diffLastUpdatedDate }} <br><br>
                 <br><br>
                 Demikian disampaikan progress selanjutnya akan dikabari lebih lanjut. <br><br>
                 Salam, COMIT Care Center.
@@ -161,6 +183,9 @@
                 Dear Customer, apabila sudah tidak mengalami kendala/request untuk {{ $ticket }} :
                 {!! $subject !!} lebih lanjut
                 maka kami ijin untuk close tiket ini.<br><br>
+                Durasi Pembuatan: {{ $diffCreatedDate }} <br><br>
+                Durasi Update Terakhir: {{ $diffLastUpdatedDate }} <br><br>
+
                 Salam, COMIT Care Center.
             </p>
         @else

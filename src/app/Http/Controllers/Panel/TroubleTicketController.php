@@ -148,7 +148,7 @@ class TroubleTicketController extends Controller
             // Get All Ticket for Response Ajax
             $model = $this->mainService->getTicketAll($request);
             return DataTables::eloquent($model)
-                ->editColumn('nomor_ticket', function ($model) {
+            ->editColumn('nomor_ticket', function ($model) {
                     $view_info_resume = '';
                     if (($model->time_diff_now ?? null) && ($model->department_name ?? null) && $model->status != 'Closed' && $model->technical_closed_date === null && (!in_array($model->resume_gm, [1, 2]) || $model->resume_cto == 0) && $model->type === 'Incident TTR') {
                         $view_resume = $model->resume_gm == 0 && $model->time_diff_now >= '01:00' && $model->time_diff_now < '24:00' && in_array(($model->problem_type ?? null), ['Gamas Non Impact', 'Gamas Impact']) && auth()->user()->role_id == 3 ? 'Resume GM' : ($model->resume_cto == 0 && $model->time_diff_now >= '24:00' && auth()->user()->role_id == 2 ? 'Resume CTO' : null);

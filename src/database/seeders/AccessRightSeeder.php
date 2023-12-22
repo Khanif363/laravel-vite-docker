@@ -318,12 +318,39 @@ class AccessRightSeeder extends Seeder
             //     'access_name' => 'Edit Changes',
             //     'department_id' => null
             // ],
+            // [
+            //     'access_name' => 'View All Ticket',
+            //     'department_id' => null
+            // ]
             [
-                'access_name' => 'View All Ticket',
+                'access_name' => 'COMIT IT Tools',
                 'department_id' => null
-            ]
+            ],
+            [
+                'access_name' => 'COMIT Fulfillment',
+                'department_id' => null
+            ],
+            [
+                'access_name' => 'COMIT Assurance',
+                'department_id' => null
+            ],
+            [
+                'access_name' => 'COMIT Application',
+                'department_id' => null
+            ],
+            [
+                'access_name' => 'COMIT SOC',
+                'department_id' => null
+            ],
         ];
         // AccessRight::truncate();
         AccessRight::insert($array);
     }
 }
+// $categories = [
+//     'COMIT IT Tools',
+//     'COMIT Fulfillment',
+//     'COMIT Assurance',
+//     'COMIT Application',
+//     'COMIT SOC'
+// ];

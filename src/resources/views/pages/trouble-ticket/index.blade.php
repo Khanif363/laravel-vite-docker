@@ -6,20 +6,20 @@
             table.dataTable thead .sorting {
                 background-image: url('{{ asset('assets/img/sort.png') }}') !important;
                 background-repeat: no-repeat;
-                background-position: center right 15px;
+                background-position: center right 0px;
                 /* scale: 2; */
             }
 
             table.dataTable thead .sorting_desc {
                 background-image: url('{{ asset('assets/img/sort-down.png') }}') !important;
                 background-repeat: no-repeat;
-                background-position: center right 15px;
+                background-position: center right 0px;
             }
 
             table.dataTable thead .sorting_asc {
                 background-image: url('{{ asset('assets/img/sort-up.png') }}') !important;
                 background-repeat: no-repeat;
-                background-position: center right 15px;
+                background-position: center right 0px;
             }
 
             .dataTables_scrollHead {
@@ -238,49 +238,58 @@
         <table class="w-full text-sm text-center text-gray-600" id="dataTable">
             <thead class="font-medium text-white capitalize text-md bg-tosca-0">
                 <tr>
-                    <th class="px-10 py-6 text-center whitespace-nowrap">
+                    <th class="px-1 py-6 text-center whitespace-nowrap">
                         Ticket ID
                     </th>
-                    <th class="px-10 py-6 text-center whitespace-nowrap">
+                    <th class="px-3 py-6 text-center whitespace-nowrap">
+                        Kategori
+                    </th>
+                    <th class="px-3 py-6 text-center whitespace-nowrap">
                         Prioritas
                     </th>
-                    <th class="px-10 py-6 text-center whitespace-nowrap">
+                    <th class="px-3 py-6 text-center whitespace-nowrap">
                         Jenis Tiket
                     </th>
-                    {{-- <th class="px-10 py-6 text-center whitespace-nowrap">
+                    {{-- <th class="px-3 py-6 text-center whitespace-nowrap">
                     Departemen
                 </th>
-                <th class="px-10 py-6 text-center whitespace-nowrap">
+                <th class="px-3 py-6 text-center whitespace-nowrap">
                     Layanan
                 </th> --}}
-                    <th class="px-10 py-6 text-center whitespace-nowrap">
+                    <th class="px-1 py-6 text-center whitespace-nowrap">
                         Subjek
                     </th>
-                    <th class="px-10 py-6 text-center whitespace-nowrap">
+                    <th class="px-3 py-6 text-center whitespace-nowrap">
                         Progress Terakhir
                     </th>
-                    {{-- <th class="px-10 py-6 text-center whitespace-nowrap">
+                    <th class="px-3 py-6 text-center whitespace-nowrap">
+                        RFO
+                    </th>
+                    <th class="px-1 py-6 text-center whitespace-nowrap">
+                        Tindakan
+                    </th>
+                    {{-- <th class="px-3 py-6 text-center whitespace-nowrap">
                     Last Update by
                 </th> --}}
-                    {{-- <th class="px-10 py-6 text-center whitespace-nowrap">
+                    {{-- <th class="px-3 py-6 text-center whitespace-nowrap">
                     Tanggal Open
                 </th> --}}
-                    <th class="px-10 py-6 text-center whitespace-nowrap">
+                    <th class="px-3 py-6 text-center whitespace-nowrap">
                         Pembuat
                     </th>
-                    {{-- <th class="px-10 py-6 text-center whitespace-nowrap">
+                    {{-- <th class="px-3 py-6 text-center whitespace-nowrap">
                     Sumber Info Gangguan
                 </th>
-                <th class="px-10 py-6 text-center whitespace-nowrap">
+                <th class="px-3 py-6 text-center whitespace-nowrap">
                     Lokasi Kejadian
                 </th>
-                <th class="px-10 py-6 text-center whitespace-nowrap">
+                <th class="px-3 py-6 text-center whitespace-nowrap">
                     Selesai Dihandle
                 </th>
-                <th class="px-10 py-6 text-center whitespace-nowrap">
+                <th class="px-3 py-6 text-center whitespace-nowrap">
                     Durasi Berjalan
                 </th> --}}
-                    <th class="px-10 py-6 text-center whitespace-nowrap">
+                    <th class="px-3 py-6 text-center whitespace-nowrap">
                         Aksi
                     </th>
                 </tr>
@@ -378,7 +387,7 @@
                             order: [
                                 [0, 'desc']
                             ],
-                            deferRender : true,
+                            deferRender: true,
                             language: {
                                 "processing": "<span class='text-gray-500 fa-stack icon-prosessing fa-md'><i class='fa fa-spinner fa-spin fa-stack-2x fa-fw'></i></span>",
                                 "zeroRecords": "Tidak ditemukan data yang sesuai",
@@ -413,6 +422,12 @@
                             columns: [{
                                     data: 'nomor_ticket',
                                     name: 'nomor_ticket',
+                                },
+                                {
+                                    data: 'category',
+                                    render: function(data, type, full) {
+                                        return data ?? '-';
+                                    }
                                 },
                                 {
                                     data: 'priority',
@@ -458,6 +473,19 @@
                                     }
                                 },
                                 {
+                                    data: 'rfo',
+                                    // name: 'rfo',
+                                    render: function(data, type, full) {
+                                        return data ?? '-';
+                                    }
+                                },
+                                {
+                                    data: 'ticket_action',
+                                    render: function(data, type, full) {
+                                        return data ?? '-';
+                                    }
+                                },
+                                {
                                     data: 'creator_name',
                                     name: 'ctr.full_name',
                                 },
@@ -467,6 +495,10 @@
                                     orderable: false,
                                 },
                             ],
+                            // "columnDefs": [{
+                            //     "width": "1%",
+                            //     "targets": [0, 1, 2, 3, 8]
+                            // }]
                         });
 
                     sessionStorage.setItem('update_type', null);

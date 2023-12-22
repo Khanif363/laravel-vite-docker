@@ -44,6 +44,8 @@
     <div class="space-dot"><span>Nomor Ticket</span></div><span>:</span> {{ $dataTicket->nomor_ticket }}<br>
     <div class="space-dot">Subjek</div><span>:</span> {!! $dataTicket->subject !!}<br>
     <div class="space-dot">Durasi</div><span>:</span> {{ $handlingDuration }}<br>
+    <div class="space-dot">Durasi Pembuatan</div><span>:</span> {{ $diffCreatedDate }}<br>
+    <div class="space-dot">Durasi Update Terakhir</div><span>:</span> {{ $diffLastUpdatedDate }}<br>
 
     <br><br><br>
     </p>

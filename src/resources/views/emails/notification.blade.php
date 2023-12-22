@@ -39,6 +39,8 @@
                     'informationSource' => 'Sumber Info',
                     'ticketStatus' => 'Status Ticket',
                     'lastProgress' => 'Last Progress',
+                    'diffCreatedDate' => 'Durasi Pembuatan',
+                    'diffLastUpdatedDate' => 'Durasi Terakhir Update',
                 ];
             @endphp
             @forelse($table as $key => $value)

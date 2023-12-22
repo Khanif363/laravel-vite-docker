@@ -11,7 +11,7 @@ interface TroubleTicketRepositoryInterface
     public function findByNomor(string $nomor);
     public function findByIdDetail(int $id): object;
     public function exportTicket(object $request, $department): object;
-    public function getTicketAll(object $request, $department);
+    public function getTicketAll(object $request, $department, $category);
     public function createTicket(object $request, string $nomor_ticket): array;
     public function updateProgress($request, $id): object;
     public static function lastDepartment($id);
